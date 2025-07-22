@@ -84,15 +84,12 @@ class MADDPG:
         #获取第一个智能体的设备（CPU/GPU），
         # 确保所有张量都在相同设备上计算
         device = self.agents[0].actor.device
-
         #将采样数据转换为 PyTorch 张量并移到相应设备
         states = T.tensor(states, dtype=T.float).to(device)
-        print(f"当前状态张量所在的设备是: {states.device}")
         actions = T.tensor(actions, dtype=T.float).to(device)
         rewards = T.tensor(rewards, dtype=T.float).to(device)
         states_ = T.tensor(states_, dtype=T.float).to(device)
         dones = T.tensor(dones).to(device)
-
         #存储各智能体在下一状态的目标动作
         all_agents_new_actions = []
         # 存储当前状态各智能体的动作
@@ -176,15 +173,15 @@ class MADDPG:
             梯度清零 → 反向传播 → 优化器更新 → 学习率调度器更新
             '''
 
-            # self.writer.add_scalar(f'Agent_{agent_idx}/Actor_Loss', actor_loss.item(), total_steps)
-            # self.writer.add_scalar(f'Agent_{agent_idx}/Critic_Loss', critic_loss.item(), total_steps)
+            self.writer.add_scalar(f'Agent_{agent_idx}/Actor_Loss', actor_loss.item(), total_steps)
+            self.writer.add_scalar(f'Agent_{agent_idx}/Critic_Loss', critic_loss.item(), total_steps)
 
-            # for name, param in agent.actor.named_parameters():
-            #     if param.grad is not None:
-            #         self.writer.add_histogram(f'Agent_{agent_idx}/Actor_Gradients/{name}', param.grad, total_steps)
-            # for name, param in agent.critic.named_parameters():
-            #     if param.grad is not None:
-            #         self.writer.add_histogram(f'Agent_{agent_idx}/Critic_Gradients/{name}', param.grad, total_steps)
+            for name, param in agent.actor.named_parameters():
+                if param.grad is not None:
+                    self.writer.add_histogram(f'Agent_{agent_idx}/Actor_Gradients/{name}', param.grad, total_steps)
+            for name, param in agent.critic.named_parameters():
+                if param.grad is not None:
+                    self.writer.add_histogram(f'Agent_{agent_idx}/Critic_Gradients/{name}', param.grad, total_steps)
 
         for agent in self.agents:
             agent.update_network_parameters()

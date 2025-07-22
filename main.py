@@ -157,7 +157,7 @@ if __name__ == '__main__':
     maddpg_agents = MADDPG(
         actor_dims, critic_dims, n_agents, n_actions,
         fc1=128, fc2=128,
-        alpha=0.00001, beta=0.02,gamma=0.7,
+        alpha=0.00001, beta=0.02,
         scenario='UAV_Round_up',
         chkpt_dir='tmp/maddpg/'
         #alpha=0.0001, beta=0.003，新增gamma=0.7
