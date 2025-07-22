@@ -122,7 +122,7 @@ if __name__ == '__main__':
     MAX_STEPS = 100      # 每回合最大步数限制
     PRINT_INTERVAL = 100 # 多少回合打印一次日志
 
-    evaluate = True     # 训练模式
+    evaluate = False     # 训练模式
     best_score = -30     # 初始最佳得分阈值
 
     # ====================== 初始化环境 ======================
