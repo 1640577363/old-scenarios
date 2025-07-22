@@ -87,6 +87,7 @@ class MADDPG:
 
         #将采样数据转换为 PyTorch 张量并移到相应设备
         states = T.tensor(states, dtype=T.float).to(device)
+        print(f"当前状态张量所在的设备是: {states.device}")
         actions = T.tensor(actions, dtype=T.float).to(device)
         rewards = T.tensor(rewards, dtype=T.float).to(device)
         states_ = T.tensor(states_, dtype=T.float).to(device)
