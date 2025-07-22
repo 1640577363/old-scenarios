@@ -1,1 +1,3 @@
 alpha=0.00001, beta=0.02,gamma=0.7,效果很差
+alpha=0.0001, beta=0.002,gamm默认，效果还是很差
+alpha=0.0001, beta=0.002,gamm默认，
