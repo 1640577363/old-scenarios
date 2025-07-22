@@ -18,7 +18,7 @@ def save_image(env_render, filename):
     # Convert the RGBA buffer to an RGB image
     image = Image.fromarray(env_render, 'RGBA')  # Use 'RGBA' mode since the buffer includes transparency
     image = image.convert('RGB')  # Convert to 'RGB' if you don't need transparency
-    
+
     image.save(filename)
 
 if __name__ == '__main__':
@@ -33,13 +33,14 @@ if __name__ == '__main__':
 
     # action space is a list of arrays, assume each agent has same action space
     n_actions = 2
-    maddpg_agents = MADDPG(actor_dims, critic_dims, n_agents, n_actions, 
-                           fc1=128, fc2=128,
-                           alpha=0.0001, beta=0.003, scenario='UAV_Round_up',
+    maddpg_agents = MADDPG(actor_dims, critic_dims, n_agents, n_actions,
+                           fc1=128, fc2=128,gamma=0.7,
+                           alpha=0.00001, beta=0.02, scenario='UAV_Round_up',
                            chkpt_dir='tmp/maddpg/')
+                        #alpha=0.0001, beta=0.003，新增gamma=0.7
 
-    memory = MultiAgentReplayBuffer(1000000, critic_dims, actor_dims, 
-                        n_actions, n_agents, batch_size=256)
+    memory = MultiAgentReplayBuffer(1000000, critic_dims, actor_dims,
+                                    n_actions, n_agents, batch_size=256)
 
     PRINT_INTERVAL = 100
     N_GAMES = 5000
@@ -55,7 +56,7 @@ if __name__ == '__main__':
         print('----  evaluating  ----')
     else:
         print('----training start----')
-    
+
     for i in range(N_GAMES):
         obs = env.reset()
         score = 0
@@ -103,7 +104,7 @@ if __name__ == '__main__':
                 best_score = avg_score
         if i % PRINT_INTERVAL == 0 and i > 0:
             print('episode', i, 'average score {:.1f}'.format(avg_score),'; average target score {:.1f}'.format(avg_target_score))
-    
+
     # save data
     file_name = 'score_history.csv'
     if not os.path.exists(file_name):
