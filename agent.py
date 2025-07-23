@@ -106,10 +106,10 @@ class Agent:
                     (1-tau)*target_actor_state_dict[name].clone()
 
         # # 内存高效方案  DeepSeek提供
-        # with T.no_grad():
-        #     for online_param, target_param in zip(self.actor.parameters(),
-        #                                           self.target_actor.parameters()):
-        #         target_param.data.copy_(tau*online_param.data + (1-tau)*target_param.data)
+        with T.no_grad():
+            for online_param, target_param in zip(self.actor.parameters(),
+                                                  self.target_actor.parameters()):
+                target_param.data.copy_(tau*online_param.data + (1-tau)*target_param.data)
 
         self.target_actor.load_state_dict(actor_state_dict)
 
