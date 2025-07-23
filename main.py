@@ -166,8 +166,8 @@ if __name__ == '__main__':
 
     memory = MultiAgentReplayBuffer(
         1000000, critic_dims, actor_dims,
-        n_actions, n_agents, batch_size=256
-    )
+        n_actions, n_agents, batch_size=1024
+    )#batch_size=256
 
     # ====================== 训练准备 ======================
     print('='*50)
