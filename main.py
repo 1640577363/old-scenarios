@@ -11,7 +11,9 @@ from tqdm import tqdm
 from maddpg import MADDPG
 from sim_env import UAVEnv
 from buffer import MultiAgentReplayBuffer
-
+# --- Matplotlib 字体设置 ---
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 或者 'FangSong', 'KaiTi' 等，具体取决于你的系统安装了哪些中文字体
+plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示为方块的问题
 warnings.filterwarnings('ignore')
 
 def obs_list_to_state_vector(obs):
