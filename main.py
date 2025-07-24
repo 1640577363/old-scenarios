@@ -110,7 +110,7 @@ if __name__ == '__main__':
 
     # 训练/评估参数
     PRINT_INTERVAL = 100 # 每隔多少回合打印一次信息
-    N_GAMES = 5000 # 总训练或评估回合数
+    N_GAMES = 15000 # 总训练或评估回合数
     MAX_STEPS = 100 # 每个回合的最大步数
     total_steps = 0 # 累计总训练步数
 
